@@ -1,0 +1,10 @@
+{
+    // Corrige o problema do 'Delete cr' forçando a quebra de linha correta
+    "files.eol": "\n",
+
+    // Roda o Prettier automaticamente toda vez que você salva o arquivo
+    "editor.formatOnSave": true,
+
+    // Garante que o VS Code use a extensão do Prettier para formatar
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
