@@ -20,7 +20,7 @@ RUN npm run build
 FROM node:20-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /srv
-RUN apk add --no-cache nginx supervisor
+RUN apk add --no-cache nginx supervisor curl
 RUN mkdir -p /var/log/supervisor /run/nginx /srv/backend
 
 # Frontend
@@ -34,5 +34,6 @@ COPY --from=backend_builder /backend/dist ./dist
 COPY backend/package*.json ./
 
 EXPOSE 80
+HEALTHCHECK --interval=30s --timeout=5s --retries=5 CMD curl -sf http://127.0.0.1/ || exit 1
 COPY supervisord.conf /etc/supervisord.conf
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
